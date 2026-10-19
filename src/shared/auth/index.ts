@@ -5,7 +5,7 @@ import {
   getRedirectResult,
   GoogleAuthProvider,
   setPersistence,
-  signInWithRedirect,
+  signInWithPopup,
   signOut,
   type User,
 } from "firebase/auth";
@@ -27,7 +27,7 @@ export async function login(returnPath?: string): Promise<void> {
   await setPersistence(auth, browserLocalPersistence);
   const provider = new GoogleAuthProvider();
   provider.setCustomParameters({ prompt: "select_account" });
-  await signInWithRedirect(auth, provider);
+  await signInWithPopup(auth, provider);
 }
 
 export async function logout(): Promise<void> {
