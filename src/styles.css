@@ -386,6 +386,53 @@ textarea {
 .loading {
   color: var(--muted);
   padding: 1.2rem 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+}
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: #12201966;
+}
+.loading-box {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.4rem 1.8rem;
+  box-shadow: 0 8px 32px #0004;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 240px;
+}
+.loading-box .loading {
+  padding: 0;
+  margin: 0;
+  color: #26352c;
+}
+.spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid #dde5dd;
+  border-top-color: var(--green);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+.spinner-inline {
+  width: 1.1rem;
+  height: 1.1rem;
+  border-width: 2px;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 .login {
   max-width: 440px;

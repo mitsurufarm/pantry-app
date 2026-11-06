@@ -5,6 +5,8 @@ interface PlanCardProps {
   remaining: number;
   onStatus: (status: Plan["status"]) => void;
   onRecipe: () => void;
+  isRecipeLoading?: boolean;
+  isStatusLoading?: boolean;
 }
 
 export function PlanCard({
@@ -12,6 +14,8 @@ export function PlanCard({
   remaining,
   onStatus,
   onRecipe,
+  isRecipeLoading = false,
+  isStatusLoading = false,
 }: PlanCardProps) {
   const statusText =
     plan.status === "cooked"
@@ -51,20 +55,27 @@ export function PlanCard({
         </p>
       )}
       <div className="button-row">
-        <button disabled={locked} onClick={() => onStatus("cooked")}>
+        <button
+          disabled={locked || isStatusLoading || isRecipeLoading}
+          onClick={() => onStatus("cooked")}
+        >
           {plan.status === "cooked" && active ? "作ったを取消" : "作った"}
         </button>
         <button
           className="secondary"
-          disabled={locked}
+          disabled={locked || isStatusLoading || isRecipeLoading}
           onClick={() => onStatus("skipped")}
         >
           {plan.status === "skipped" && active
             ? "作らなかったを取消"
             : "作らなかった"}
         </button>
-        <button className="secondary" onClick={onRecipe}>
-          レシピを見る
+        <button
+          className="secondary"
+          disabled={isRecipeLoading || isStatusLoading}
+          onClick={onRecipe}
+        >
+          {isRecipeLoading ? "レシピ作成中…" : "レシピを見る"}
         </button>
       </div>
     </article>

@@ -169,7 +169,9 @@ export function SettingsPage({ onNotice }: SettingsPageProps) {
           要約して追記
         </button>
         <ErrorMessage error={organizeError} />
-        {organize.isPending && <Loading label="内容を整理しています…" />}
+        {organize.isPending && (
+          <Loading overlay label="内容を整理しています…" />
+        )}
       </div>
 
       <button
@@ -185,7 +187,7 @@ export function SettingsPage({ onNotice }: SettingsPageProps) {
       )}
 
       <ErrorMessage error={save.error} />
-      {save.isPending && <Loading label="保存しています…" />}
+      {save.isPending && <Loading overlay label="保存しています…" />}
 
       <ConfirmDialog
         isOpen={pendingNavigation !== null}

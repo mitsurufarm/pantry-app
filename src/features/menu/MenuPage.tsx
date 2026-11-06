@@ -119,7 +119,8 @@ export function MenuPage({ onNotice }: MenuPageProps) {
   const todayPlans = plans.filter((plan) => plan.date === today);
   const pending = [...plans].sort(
     (a, b) =>
-      a.date.localeCompare(b.date) || a.meal_type.localeCompare(b.meal_type),
+      a.date.localeCompare(b.date) ||
+      (a.meal_type === "lunch" ? 0 : 1) - (b.meal_type === "lunch" ? 0 : 1),
   );
 
   const handleStatusChange = (plan: Plan, value: Plan["status"]) => {
@@ -165,6 +166,14 @@ export function MenuPage({ onNotice }: MenuPageProps) {
               }
               onStatus={(value) => handleStatusChange(plan, value)}
               onRecipe={() => recipeMutation.mutate({ plan, conditions: "" })}
+              isRecipeLoading={
+                recipeMutation.isPending &&
+                recipeMutation.variables?.plan.plan_id === plan.plan_id
+              }
+              isStatusLoading={
+                status.isPending &&
+                status.variables?.plan.plan_id === plan.plan_id
+              }
             />
           ))
         ) : (
@@ -219,6 +228,14 @@ export function MenuPage({ onNotice }: MenuPageProps) {
               }
               onStatus={(value) => handleStatusChange(plan, value)}
               onRecipe={() => recipeMutation.mutate({ plan, conditions: "" })}
+              isRecipeLoading={
+                recipeMutation.isPending &&
+                recipeMutation.variables?.plan.plan_id === plan.plan_id
+              }
+              isStatusLoading={
+                status.isPending &&
+                status.variables?.plan.plan_id === plan.plan_id
+              }
             />
           ))}
         </div>
@@ -252,7 +269,19 @@ export function MenuPage({ onNotice }: MenuPageProps) {
       />
       {(generate.isPending ||
         status.isPending ||
-        correctionMutation.isPending) && <Loading label="処理しています…" />}
+        recipeMutation.isPending ||
+        correctionMutation.isPending) && (
+        <Loading
+          overlay
+          label={
+            recipeMutation.isPending
+              ? "レシピを作成しています…"
+              : generate.isPending
+                ? "献立を作成しています…"
+                : "処理しています…"
+          }
+        />
+      )}
 
       {recipe && (
         <RecipeModal

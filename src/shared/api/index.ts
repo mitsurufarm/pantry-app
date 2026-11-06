@@ -46,7 +46,7 @@ async function request<Schema extends z.ZodTypeAny>(
   }
 
   const controller = new AbortController();
-  const timer = window.setTimeout(() => controller.abort(), 100_000);
+  const timer = window.setTimeout(() => controller.abort(), 120_000);
   const headers = new Headers(init.headers);
   headers.set("Authorization", `Bearer ${token}`);
   if (init.body !== undefined && !headers.has("Content-Type")) {

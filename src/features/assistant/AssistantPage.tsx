@@ -108,7 +108,7 @@ export function AssistantPage({ onNotice }: AssistantPageProps) {
 
       <ErrorMessage error={ask.error || action.error} />
       {(ask.isPending || action.isPending) && (
-        <Loading label="AIに問い合わせています…" />
+        <Loading overlay label="AIに問い合わせています…" />
       )}
     </section>
   );

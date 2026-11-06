@@ -29,5 +29,12 @@ export default defineConfig({
     setupFiles: ["./src/test/setup.ts"],
     restoreMocks: true,
     include: ["src/**/*.test.{ts,tsx}"],
+    env: {
+      VITE_FIREBASE_API_KEY: "",
+      VITE_FIREBASE_AUTH_DOMAIN: "",
+      VITE_FIREBASE_PROJECT_ID: "",
+      VITE_FIREBASE_APP_ID: "",
+      VITE_PANTRY_API_BASE_URL: "https://example.invalid",
+    },
   },
 });
